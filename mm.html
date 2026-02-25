@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SystemFim - Gestão de Fluxo de Caixa</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+/* Reset e básico */
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Roboto', sans-serif; }
+body { line-height:1.6; color:#333; scroll-behavior: smooth; }
+a { text-decoration:none; color:inherit; }
+
+/* Banner Pré-Lançamento */
+#prelaunch-banner { background:#ffdd57; color:#333; text-align:center; padding:15px; font-weight:bold; }
+
+/* Header */
+header { background:#1a73e8; color:#fff; padding:15px 0; position:sticky; top:0; z-index:1000; }
+.container { width:90%; max-width:1200px; margin:auto; }
+nav { display:flex; justify-content:space-between; align-items:center; }
+.logo { font-size:1.8rem; font-weight:bold; }
+.nav-links { display:flex; gap:25px; }
+.nav-links a { color:#fff; font-weight:500; transition:0.3s; }
+.nav-links a:hover { text-decoration:underline; }
+.btn-header { background:#fff; color:#1a73e8; padding:10px 25px; border-radius:5px; font-weight:bold; transition:0.3s; }
+.btn-header:hover { background:#e1e1e1; }
+
+/* Hero */
+.hero { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; padding:100px 0; background:#e8f0fe; }
+.hero-content { flex:1 1 500px; animation:fadeInLeft 1s ease forwards; opacity:0; }
+.hero-content h1 { font-size:2.8rem; color:#1a73e8; margin-bottom:20px; }
+.hero-content p { font-size:1.2rem; margin-bottom:30px; }
+.btn-hero { background:#1a73e8; color:#fff; padding:12px 30px; border-radius:5px; font-weight:bold; transition:0.3s; display:inline-block; }
+.btn-hero:hover { background:#155ab6; }
+.hero-image { flex:1 1 400px; text-align:center; animation:fadeInRight 1s ease forwards; opacity:0; }
+.hero-image img { max-width:100%; border-radius:15px; }
+
+/* About */
+section { padding:80px 0; }
+.about { display:flex; align-items:center; gap:50px; flex-wrap:wrap; }
+.about img { flex:1 1 400px; border-radius:15px; animation:fadeIn 1s ease forwards; opacity:0; }
+.about-text { flex:1 1 400px; animation:fadeIn 1s ease forwards; opacity:0; }
+.about-text h2 { font-size:2rem; color:#1a73e8; margin-bottom:20px; }
+.about-text ul { list-style: disc; padding-left:20px; }
+.about-text ul li { margin-bottom:12px; font-weight:500; }
+
+/* Features */
+.features { background:#f1f3f4; text-align:center; }
+.features h2 { font-size:2rem; color:#1a73e8; margin-bottom:50px; }
+.feature-cards { display:flex; flex-wrap:wrap; gap:30px; justify-content:center; }
+.feature-card { background:#fff; padding:30px; border-radius:15px; width:250px; box-shadow:0 6px 15px rgba(0,0,0,0.1); transition:0.3s; animation:fadeInUp 1s ease forwards; opacity:0; }
+.feature-card:hover { transform:translateY(-5px); }
+.feature-card i { font-size:2rem; color:#1a73e8; margin-bottom:15px; }
+.feature-card h3 { margin-bottom:12px; color:#1a73e8; }
+.feature-card p { font-size:0.95rem; }
+
+/* Pricing */
+.pricing { text-align:center; }
+.pricing h2 { font-size:2rem; color:#1a73e8; margin-bottom:50px; }
+.pricing-cards { display:flex; flex-wrap:wrap; gap:30px; justify-content:center; }
+.pricing-card { background:#fff; padding:30px; border-radius:15px; width:250px; box-shadow:0 6px 15px rgba(0,0,0,0.1); transition:0.3s; animation:fadeInUp 1s ease forwards; opacity:0; }
+.pricing-card:hover { transform:translateY(-5px); }
+.pricing-card h3 { margin-bottom:15px; color:#1a73e8; }
+.pricing-card p { margin-bottom:20px; font-size:1rem; }
+.pricing-card .btn { background:#1a73e8; color:#fff; padding:10px 20px; border-radius:5px; font-weight:bold; transition:0.3s; }
+.pricing-card .btn:hover { background:#155ab6; }
+
+/* Testimonials */
+.testimonials { background:#e8f0fe; text-align:center; }
+.testimonials h2 { font-size:2rem; color:#1a73e8; margin-bottom:50px; }
+.testimonial-cards { display:flex; flex-wrap:wrap; gap:30px; justify-content:center; }
+.testimonial-card { background:#fff; padding:30px; border-radius:15px; width:300px; box-shadow:0 6px 15px rgba(0,0,0,0.1); transition:0.3s; animation:fadeInUp 1s ease forwards; opacity:0; }
+.testimonial-card p { font-style:italic; margin-bottom:15px; }
+.testimonial-card h4 { color:#1a73e8; }
+
+/* Contact */
+.contact { text-align:center; }
+.contact h2 { font-size:2rem; color:#1a73e8; margin-bottom:30px; }
+.contact p { margin-bottom:20px; }
+.contact .btn-hero { font-size:1.1rem; padding:12px 25px; }
+
+/* Footer */
+footer { background:#1a73e8; color:#fff; padding:40px 0; text-align:center; }
+footer p { margin-bottom:5px; }
+
+/* Responsivo */
+@media(max-width:768px) {
+    .hero { flex-direction:column-reverse; text-align:center; }
+    .about { flex-direction:column; text-align:center; }
+    .feature-cards, .pricing-cards, .testimonial-cards { flex-direction:column; }
+}
+
+/* Animações */
+@keyframes fadeInLeft { from {opacity:0; transform:translateX(-50px);} to {opacity:1; transform:translateX(0);} }
+@keyframes fadeInRight { from {opacity:0; transform:translateX(50px);} to {opacity:1; transform:translateX(0);} }
+@keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+@keyframes fadeInUp { from {opacity:0; transform:translateY(30px);} to {opacity:1; transform:translateY(0);} }
+</style>
+</head>
+<body>
+
+<!-- Banner Pré-Lançamento -->
+<div id="prelaunch-banner">
+    🚀 SystemFim ainda está em desenvolvimento! Assine antes do lançamento oficial e garanta seu desconto exclusivo!
+</div>
+
+<!-- Header -->
+<header>
+    <div class="container">
+        <nav>
+            <div class="logo">System<span>Fim</span></div>
+            <div class="nav-links">
+                <a href="#hero">Início</a>
+                <a href="#about">Sobre</a>
+                <a href="#features">Recursos</a>
+                <a href="#pricing">Planos</a>
+                <a href="#contact">Contato</a>
+            </div>
+            <a href="#contact" class="btn-header">Começar Agora</a>
+        </nav>
+    </div>
+</header>
+
+<!-- Hero -->
+<section class="hero" id="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1>Controle o fluxo de caixa da sua empresa com facilidade</h1>
+            <p>SystemFim ajuda você a registrar entradas, saídas e gerar relatórios precisos em tempo real.</p>
+            <a href="#contact" class="btn-hero">Teste Grátis</a>
+        </div>
+        <div class="hero-image">
+            <img src="images/finance-hero.png" alt="Gestão Financeira">
+        </div>
+    </div>
+</section>
+
+<!-- About -->
+<section class="about" id="about">
+    <div class="container">
+        <img src="images/finance-team.jpg" alt="Equipe SystemFim">
+        <div class="about-text">
+            <h2>Por que escolher o SystemFim?</h2>
+            <ul>
+                <li>Controle de fluxo de caixa em tempo real</li>
+                <li>Relatórios financeiros detalhados</li>
+                <li>Gestão simplificada de pagamentos</li>
+                <li>Segurança de dados garantida</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- Features -->
+<section class="features" id="features">
+    <div class="container">
+        <h2>Recursos do SystemFim</h2>
+        <div class="feature-cards">
+            <div class="feature-card"><i class="fas fa-receipt"></i><h3>Entradas e Saídas</h3><p>Registre todas as entradas e saídas de caixa de forma rápida e prática.</p></div>
+            <div class="feature-card"><i class="fas fa-chart-line"></i><h3>Relatórios Automáticos</h3><p>Gere relatórios completos para análises financeiras precisas.</p></div>
+            <div class="feature-card"><i class="fas fa-bell"></i><h3>Alertas de Pagamentos</h3><p>Receba notificações sobre pagamentos e vencimentos importantes.</p></div>
+            <div class="feature-card"><i class="fas fa-users"></i><h3>Multiusuário</h3><p>Controle de permissões e acessos diferentes para cada colaborador.</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing -->
+<section class="pricing" id="pricing">
+    <div class="container">
+        <h2>Assinatura SystemFim</h2>
+        <div class="pricing-cards">
+            <div class="pricing-card">
+                <h3>Mensal</h3>
+                <p>R$49,90 / mês</p>
+                <p>Acesso completo a todas as funcionalidades do SystemFim</p>
+                <a href="#contact" class="btn">Assinar Agora</a>
+            </div>
+            <div class="pricing-card">
+                <h3>Trimestral</h3>
+                <p>R$139,90 / 3 meses</p>
+                <p>Acesso completo + desconto no pagamento trimestral</p>
+                <a href="#contact" class="btn">Assinar Agora</a>
+            </div>
+            <div class="pricing-card">
+                <h3>Anual</h3>
+                <p>R$499,90 / ano</p>
+                <p>Acesso completo + melhor custo-benefício</p>
+                <a href="#contact" class="btn">Assinar Agora</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonials" id="testimonials">
+    <div class="container">
+        <h2>O que nossos clientes dizem</h2>
+        <div class="testimonial-cards">
+            <div class="testimonial-card"><p>"SystemFim transformou completamente o controle financeiro da minha empresa. Simples e eficiente!"</p><h4>Maria Oliveira</h4></div>
+            <div class="testimonial-card"><p>"Agora tenho relatórios detalhados sempre que preciso. Recomendo 100%!"</p><h4>João Santos</h4></div>
+            <div class="testimonial-card"><p>"O sistema é intuitivo e seguro, perfeito para pequenas empresas."</p><h4>Lucas Pereira</h4></div>
+        </div>
+    </div>
+</section>
+
+<!-- Contato via Instagram -->
+<section class="contact" id="contact">
+    <div class="container">
+        <h2>Entre em contato</h2>
+        <p>Para dúvidas, suporte ou informações sobre o SystemFim, nos envie uma mensagem pelo Instagram:</p>
+        <a href="https://www.instagram.com/seu_usuario_aqui" target="_blank" class="btn-hero">
+            <i class="fab fa-instagram"></i> Nos Chame no Instagram
+        </a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; <span id="year"></span> SystemFim. Todos os direitos reservados.</p>
+    <p>Desenvolvido com ❤️ pela equipe SystemFim</p>
+</footer>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Simple scroll animations
+const faders = document.querySelectorAll('.hero-content, .hero-image, .about img, .about-text, .feature-card, .pricing-card, .testimonial-card');
+const appearOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+    entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.style.opacity = 1;
+        entry.target.style.animationPlayState = "running";
+        appearOnScroll.unobserve(entry.target);
+    });
+}, appearOptions);
+faders.forEach(fader => appearOnScroll.observe(fader));
+</script>
+
+</body>
+</html>
